@@ -17,7 +17,7 @@ class Agente{
         if(energia >= 2){
             ubicacion = destino
             energia = energia -1
-            return "LLegue"
+            return "Llegue"
         }
         else{
             return "Necesito ir a al plaza para descanzar"
