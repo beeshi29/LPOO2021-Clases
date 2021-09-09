@@ -4,38 +4,49 @@ class Agente{
     var orden_de_entrega = []
     var ubicacion
     const cantmax = 5
+    const veripaque = {nuevo_paq => return orden_de_entrega.any({paquete => nuevo_paq == paquete})}
+    const veridirecc = {nueva_ubi => return nueva_ubi == ubicacion}
+
+    method ver_ubic(){
+        return ubicacion.codigo()
+    }
     
-    method verubic(){
-        return ubicacion
+    method ver_energia(){
+        return energia
     }
 
-    method verorden(){
+    method ver_orden(){
         return orden_de_entrega
     } 
 
     method desplazarse(destino){
-        if(energia >= 2){
+    	 if (veridirecc.apply(destino)){
+    	 	return "Ya estoy ahi"
+        }
+         if(energia >= 2){
             ubicacion = destino
             energia = energia -1
-            return "Llegue"
+            return "LLegue"
         }
         else{
             return "Necesito ir a al plaza para descanzar"
         }
-    }
+       }
        
     method descansar(){
-        if (energia < 2){
-            ubicacion = "plaza"
+        if (ubicacion.codigo()== "pl"){
             energia = energia + 5
             return "Ya termine de descanzar, puedo seguir"
         }
         else{
-            return "Aun tengo energia de sobra"
-           }
+        	return "No estoy en la plaza"
+        }
     }
       
     method retirar_paquete(paquete){
+    	if (veripaque.apply(paquete)){
+    	 	return "Ya lo tengo"
+        }
         if(orden_de_entrega.size() == cantmax){
             return "Ya estoy lleno"
         }
@@ -45,14 +56,22 @@ class Agente{
         orden_de_entrega.add(paquete)
            return "Paquete retirado"
       }
+      
+      method entregar_paquete(paquete){
+          if(ubicacion != paquete.ver_destino()){
+              return "El destino del paquete es incorrecto"
+          }
+          orden_de_entrega.remove(paquete)
+          return "Paquete entregado"
+      }
 }    
 
 class Destinos{
-    var codigo
+    var codigo  
     
     method codigo(){ 
         return codigo 
-       }    
+       } 
 }
 
 class Paquete{
@@ -61,7 +80,11 @@ class Paquete{
     var destino
     
     method ver_destino(){ 
-        return destino
+        return destino.codigo()
+    }
+    
+    method ver_codigo(){ 
+        return codigo
     }
 }
 
