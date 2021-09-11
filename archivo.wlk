@@ -80,7 +80,7 @@ class Paquete{
     var destino
     
     method ver_destino(){ 
-        return destino.codigo()
+        return destino
     }
     
     method ver_codigo(){ 
