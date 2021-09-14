@@ -7,7 +7,7 @@ class Agente{
     const veripaque = {nuevo_paq => return orden_de_entrega.any({paquete => nuevo_paq == paquete})}
     const veridirecc = {nueva_ubi => return nueva_ubi == ubicacion}
 
-    method ver_ubic(){
+    method ver_ubicacion(){
         return ubicacion.codigo()
     }
     
@@ -16,7 +16,7 @@ class Agente{
     }
 
     method ver_orden(){
-        return orden_de_entrega
+        return orden_de_entrega.map({paquete => paquete.ver_codigo()})
     } 
 
     method desplazarse(destino){
@@ -67,7 +67,7 @@ class Agente{
 }    
 
 class Destinos{
-    var codigo  
+    var codigo 
     
     method codigo(){ 
         return codigo 
@@ -88,17 +88,17 @@ class Paquete{
     }
 }
 
-const deposito = new Destinos(codigo = "de")
-const plaza = new Destinos(codigo = "pl")
-const casa1 = new Destinos(codigo = "c1")
-const casa2 = new Destinos(codigo = "c2")
-const casa3 = new Destinos(codigo = "c3")
-const agente1 = new Agente(codigo = "a1", energia = 4, ubicacion = deposito)
-const agente2 = new Agente(codigo = "a2", energia = 4, ubicacion = deposito)
-const agente3 = new Agente(codigo = "a3", energia = 4, ubicacion = deposito)
-const paquete1 = new Paquete(codigo = "p1", ubicacion = deposito, destino = casa1)
-const paquete2 = new Paquete(codigo = "p2", ubicacion = deposito, destino = casa2)
-const paquete3 = new Paquete(codigo = "p3", ubicacion = deposito, destino = casa1)
-const paquete4 = new Paquete(codigo = "p4", ubicacion = deposito, destino = casa1)
-const paquete5 = new Paquete(codigo = "p5", ubicacion = deposito, destino = casa3)
-const paquete6 = new Paquete(codigo = "p6", ubicacion = deposito, destino = casa3)
+const deposito = new Destinos(codigo = "deposito")
+const plaza = new Destinos(codigo = "plaza")
+const casa1 = new Destinos(codigo = "casa 1")
+const casa2 = new Destinos(codigo = "casa 2")
+const casa3 = new Destinos(codigo = "casa 3")
+const agente1 = new Agente(codigo = "agente 1", energia = 4, ubicacion = deposito)
+const agente2 = new Agente(codigo = "agente 2", energia = 4, ubicacion = deposito)
+const agente3 = new Agente(codigo = "agente 3", energia = 4, ubicacion = deposito)
+const paquete1 = new Paquete(codigo = "paquete 1", ubicacion = deposito, destino = casa1)
+const paquete2 = new Paquete(codigo = "paquete 2", ubicacion = deposito, destino = casa2)
+const paquete3 = new Paquete(codigo = "paquete 3", ubicacion = deposito, destino = casa1)
+const paquete4 = new Paquete(codigo = "paquete 4", ubicacion = deposito, destino = casa1)
+const paquete5 = new Paquete(codigo = "paquete 5", ubicacion = deposito, destino = casa3)
+const paquete6 = new Paquete(codigo = "paquete 6", ubicacion = deposito, destino = casa3)
