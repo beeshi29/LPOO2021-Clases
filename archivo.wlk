@@ -29,7 +29,7 @@ class Agente{
         }
          if(energia >= 2){
          	destino.agentes_en_el_lugar(self.ver_codigo())
-         	ubicacion.irme(self.ver_codigo()) //landi
+         	ubicacion.irme(self.ver_codigo())
             ubicacion = destino
             energia = energia -1
             return "Llegue"
