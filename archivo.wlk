@@ -14,6 +14,10 @@ class Agente{
     method ver_energia(){
         return energia
     }
+    
+     method ver_codigo(){
+        return codigo
+    }
 
     method ver_orden(){
         return orden_de_entrega.map({paquete => paquete.ver_codigo()})
@@ -24,9 +28,11 @@ class Agente{
     	 	return "Ya estoy ahi"
         }
          if(energia >= 2){
+         	destino.agentes_en_el_lugar(self.ver_codigo())
+         	ubicacion.irme(self.ver_codigo()) //landi
             ubicacion = destino
             energia = energia -1
-            return "LLegue"
+            return "Llegue"
         }
         else{
             return "Necesito ir a al plaza para descanzar"
@@ -34,9 +40,9 @@ class Agente{
        }
        
     method descansar(){
-        if (ubicacion.codigo()== "pl"){
+        if (ubicacion.codigo()== "plaza"){
             energia = energia + 5
-            return "Ya termine de descanzar, puedo seguir"
+            return "Termine de descansar, ya puedo seguir"
         }
         else{
         	return "No estoy en la plaza"
@@ -51,7 +57,7 @@ class Agente{
             return "Ya estoy lleno"
         }
         if (ubicacion != deposito){
-            return "No estas en el deposito"
+            return "No estoy en el deposito"
         }
         orden_de_entrega.add(paquete)
            return "Paquete retirado"
@@ -61,17 +67,39 @@ class Agente{
           if(ubicacion != paquete.ver_destino()){
               return "El destino del paquete es incorrecto"
           }
+          
           orden_de_entrega.remove(paquete)
+          ubicacion.paquetes_entregados(paquete)
           return "Paquete entregado"
       }
 }    
 
 class Destinos{
-    var codigo 
+    var codigo
+    var paquetes_entregados = []
+    var agentes_ahi = []
     
     method codigo(){ 
         return codigo 
        } 
+       
+    method estado(){ 
+       	return "Paquetes entregados: " + paquetes_entregados + " Agentes en el lugar: " + agentes_ahi
+       }
+       
+    method paquetes_entregados(paquete){
+    	paquetes_entregados.add(paquete.ver_codigo())
+    	return paquete
+    }
+    
+     method agentes_en_el_lugar(agente){
+    	agentes_ahi.add(agente)
+    	return agente
+    }
+    
+    method irme(agente){
+    	agentes_ahi.remove(agente)
+    }
 }
 
 class Paquete{
