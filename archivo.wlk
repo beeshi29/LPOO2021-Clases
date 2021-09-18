@@ -28,8 +28,8 @@ class Agente{
     	 	return "Ya estoy ahi"
         }
          if(energia >= 2){
-         	destino.agentes_en_el_lugar(self.ver_codigo())
-         	ubicacion.irme(self.ver_codigo())
+         	destino.agregar_agente(self)
+         	ubicacion.irme(self)
             ubicacion = destino
             energia = energia -1
             return "Llegue"
@@ -56,49 +56,55 @@ class Agente{
         if(orden_de_entrega.size() == cantmax){
             return "Ya estoy lleno"
         }
-        if (ubicacion != deposito){
+        if (ubicacion.codigo() != "deposito"){
             return "No estoy en el deposito"
         }
         orden_de_entrega.add(paquete)
            return "Paquete retirado"
       }
-      
+      	
       method entregar_paquete(paquete){
+      	
           if(ubicacion != paquete.ver_destino()){
               return "El destino del paquete es incorrecto"
           }
-          
           orden_de_entrega.remove(paquete)
-          ubicacion.paquetes_entregados(paquete)
+          ubicacion.agregar_paquete(paquete)
           return "Paquete entregado"
       }
 }    
 
 class Destinos{
     var codigo
-    var paquetes_entregados = []
-    var agentes_ahi = []
+    var paquetes = []
+    var agentes = []
     
     method codigo(){ 
         return codigo 
        } 
        
     method estado(){ 
-       	return "Paquetes entregados: " + paquetes_entregados + " Agentes en el lugar: " + agentes_ahi
+       	return "Paquetes entregados: " + self.ver_paquetes() + " Agentes en el lugar: " + self.ver_agentes()
        }
        
-    method paquetes_entregados(paquete){
-    	paquetes_entregados.add(paquete.ver_codigo())
-    	return paquete
+    method agregar_paquete(paquete){
+    	paquetes.add(paquete)
     }
     
-     method agentes_en_el_lugar(agente){
-    	agentes_ahi.add(agente)
-    	return agente
+     method agregar_agente(agente){
+    	agentes.add(agente)
+    }
+    
+    method ver_paquetes(){
+    	 return paquetes.map({paquete => paquete.ver_codigo()})
+    }
+    
+    method ver_agentes(){
+    	 return agentes.map({agente => agente.ver_codigo()})
     }
     
     method irme(agente){
-    	agentes_ahi.remove(agente)
+        agentes.remove(agente)
     }
 }
 
@@ -115,18 +121,3 @@ class Paquete{
         return codigo
     }
 }
-
-const deposito = new Destinos(codigo = "deposito")
-const plaza = new Destinos(codigo = "plaza")
-const casa1 = new Destinos(codigo = "casa 1")
-const casa2 = new Destinos(codigo = "casa 2")
-const casa3 = new Destinos(codigo = "casa 3")
-const agente1 = new Agente(codigo = "agente 1", energia = 4, ubicacion = deposito)
-const agente2 = new Agente(codigo = "agente 2", energia = 4, ubicacion = deposito)
-const agente3 = new Agente(codigo = "agente 3", energia = 4, ubicacion = deposito)
-const paquete1 = new Paquete(codigo = "paquete 1", ubicacion = deposito, destino = casa1)
-const paquete2 = new Paquete(codigo = "paquete 2", ubicacion = deposito, destino = casa2)
-const paquete3 = new Paquete(codigo = "paquete 3", ubicacion = deposito, destino = casa1)
-const paquete4 = new Paquete(codigo = "paquete 4", ubicacion = deposito, destino = casa1)
-const paquete5 = new Paquete(codigo = "paquete 5", ubicacion = deposito, destino = casa3)
-const paquete6 = new Paquete(codigo = "paquete 6", ubicacion = deposito, destino = casa3)
