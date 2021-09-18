@@ -1,0 +1,36 @@
+import example.*
+
+program prueba {
+	
+	const deposito = new Destinos(codigo = "deposito")
+	const plaza = new Destinos(codigo = "plaza")
+	const casa1 = new Destinos(codigo = "casa 1")
+	const casa2 = new Destinos(codigo = "casa 2")
+	const casa3 = new Destinos(codigo = "casa 3")
+	const agente1 = new Agente(codigo = "agente 1", energia = 4, ubicacion = deposito)
+	const agente2 = new Agente(codigo = "agente 2", energia = 4, ubicacion = deposito)
+	const agente3 = new Agente(codigo = "agente 3", energia = 4, ubicacion = deposito)
+	const paquete1 = new Paquete(codigo = "paquete 1", ubicacion = deposito, destino = casa1)
+	const paquete2 = new Paquete(codigo = "paquete 2", ubicacion = deposito, destino = casa2)
+	const paquete3 = new Paquete(codigo = "paquete 3", ubicacion = deposito, destino = casa1)
+	const paquete4 = new Paquete(codigo = "paquete 4", ubicacion = deposito, destino = casa1)
+	const paquete5 = new Paquete(codigo = "paquete 5", ubicacion = deposito, destino = casa3)
+	const paquete6 = new Paquete(codigo = "paquete 6", ubicacion = deposito, destino = casa3)
+	
+	console.println ("Se crearon los agentes y paquetes")	
+	console.println (deposito.estado())
+	console.println (agente1.retirar_paquete(paquete2))
+	console.println (agente1.desplazarse(casa1))
+	console.println (agente1.entregar_paquete(paquete2))
+	console.println (agente1.desplazarse(casa2))
+	console.println (agente1.entregar_paquete(paquete2))
+	console.println (agente1.ver_energia())
+	console.println (agente1.desplazarse(plaza))
+	console.println (agente1.ver_energia())
+	console.println (agente1.retirar_paquete(paquete1))
+	console.println (agente1.desplazarse(plaza))
+	console.println (deposito.estado())
+	console.println (agente1.desplazarse(deposito))
+	console.println (agente1.retirar_paquete(paquete1))
+	console.println (casa2.estado())
+}
