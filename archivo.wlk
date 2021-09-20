@@ -72,8 +72,10 @@ class Agente{
        method procesar_entrega(){
        	return orden_de_entrega.map({
        		paquete => 
-       		if(paquete.ver_destino()== self.ver_ubicacion())
+       		if(paquete.ver_destinoobj() == ubicacion)
        			 self.entregar_paquete(paquete)
+       			 else 
+       			 return "No entregado"
        	})
     }
       	
