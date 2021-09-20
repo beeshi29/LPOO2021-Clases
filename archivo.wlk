@@ -8,11 +8,11 @@ class Agente{
     const veridirecc = {nueva_ubi => return nueva_ubi == ubicacion}
 
     method ver_ubicacion(){
-        return ubicacion.codigo()
+        return "Tu destino es : " + ubicacion.codigo()
     }
     
     method ver_energia(){
-        return energia
+        return "Tu energia es : " + energia
     }
     
      method ver_codigo(){
@@ -22,6 +22,12 @@ class Agente{
     method ver_orden(){
         return orden_de_entrega.map({paquete => paquete.ver_codigo()})
     } 
+    
+    method procesar_destino(){
+    	const primerPaquete = orden_de_entrega.get(0)
+		const destinoSiguiente = primerPaquete.ver_destinoobj()
+		return self.desplazarse(destinoSiguiente)
+    }
 
     method desplazarse(destino){
     	 if (veridirecc.apply(destino)){
@@ -32,7 +38,7 @@ class Agente{
          	ubicacion.irme(self)
             ubicacion = destino
             energia = energia -1
-            return "Llegue"
+            return "Ya Llegue al destino"
         }
         else{
             return "Necesito ir a al plaza para descanzar"
@@ -62,10 +68,17 @@ class Agente{
         orden_de_entrega.add(paquete)
            return "Paquete retirado"
       }
+      
+       method procesar_entrega(){
+       	return orden_de_entrega.map({
+       		paquete => 
+       		if(paquete.ver_destino()== self.ver_ubicacion())
+       			 self.entregar_paquete(paquete)
+       	})
+    }
       	
       method entregar_paquete(paquete){
-      	
-          if(ubicacion != paquete.ver_destino()){
+          if(ubicacion != paquete.ver_destinoobj()){
               return "El destino del paquete es incorrecto"
           }
           orden_de_entrega.remove(paquete)
@@ -114,6 +127,9 @@ class Paquete{
     var destino
     
     method ver_destino(){ 
+        return destino.codigo()
+    }
+    method ver_destinoobj(){ 
         return destino
     }
     
