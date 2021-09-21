@@ -99,7 +99,7 @@ class Destinos{
        } 
        
     method estado(){ 
-       	return "Paquetes entregados: " + self.ver_paquetes() + " Agentes en el lugar: " + self.ver_agentes()
+       	return "Paquetes en el lugar: " + self.ver_paquetes() + " Agentes en el lugar: " + self.ver_agentes()
        }
        
     method agregar_paquete(paquete){
