@@ -33,15 +33,18 @@ class Agente{
     	 if (veridirecc.apply(destino)){
     	 	return "Ya estoy ahi"
         }
-         if(energia >= 2){
+         if(energia >= 1){
          	destino.agregar_agente(self)
          	ubicacion.irme(self)
             ubicacion = destino
             energia = energia -1
-            return "Ya Llegue al destino"
+            return "Ya llegue al destino"
+        }
+        if(energia <= 1){
+        	return "Necesito ir a al plaza para descanzar"
         }
         else{
-            return "Necesito ir a al plaza para descanzar"
+            return "No tengo energia"
         }
        }
        
